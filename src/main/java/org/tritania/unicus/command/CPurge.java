@@ -94,37 +94,36 @@ public class CPurge implements CommandExecutor
                     Log.severe("Error: %s", ex);
                 }
             }
-        }
         
-        int i = 1;
-        boolean end = false;
-        for (String str: data) {
-            if (str.equals("afk: false") || str.equals("afk: true")) {
-                end = true;
+            int i = 1;
+            boolean end = false;
+            for (String str: data) {
+                if (str.equals("afk: false") || str.equals("afk: true")) {
+                    end = true;
+                }
+                if (end) {
+                    postdata.add(str + System.getProperty("line.separator"));
+                } else if (i >= 21 && !str.equals("afk: false") && !str.equals("afk: true")) {
+                    postdata.add("#" + str + System.getProperty("line.separator"));
+                }  else {
+                    postdata.add(str + System.getProperty("line.separator"));
+                }
+                i++;
             }
-            if (end) {
-                postdata.add(str + System.getProperty("line.separator"));
-            } else if (i >= 21 && !str.equals("afk: false") && !str.equals("afk: true")) {
-                postdata.add("#" + str + System.getProperty("line.separator"));
-            }  else {
-                postdata.add(str + System.getProperty("line.separator"));
+            
+            try 
+                {
+                FileWriter writer = new FileWriter(homes); 
+                for (String str: postdata) {
+                    writer.write(str);
+                }
+                writer.close();
             }
-            i++;
-        }
-        
-        try 
+            catch (Exception ex)
             {
-            FileWriter writer = new FileWriter(homes); 
-            for (String str: postdata) {
-                writer.write(str);
+                Log.severe("Error: %s", ex);
             }
-            writer.close();
         }
-        catch (Exception ex)
-        {
-            Log.severe("Error: %s", ex);
-        }
-        
         return true;
     }
 }

@@ -52,15 +52,15 @@ public class CUnPurge implements CommandExecutor
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        System.out.println(homes);
         Player player = (Player) sender; //need to check for console
         if (args.length < 1) {
             Message.info(sender, command.getUsage());
             return true;
         } 
-        Player toPurge = Bukkit.getPlayer(args[0]);
         if (player.hasPermission("unicus.admin") && un.purges.contains(args[0])) {
             homes = homes + "/" + args[0] + ".yml";
+            
+            System.out.println(homes);
             
             BufferedReader br = null;
  
@@ -71,8 +71,8 @@ public class CUnPurge implements CommandExecutor
                 br = new BufferedReader(new FileReader(homes));
      
                 while ((line = br.readLine()) != null) {
-                    line = line.replace("#", "");
-                    data.add(line); 
+                    String linep = line.replace("#", "");
+                    data.add(linep); 
                 }
             } 
             catch (IOException e) 
