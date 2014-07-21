@@ -23,6 +23,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.FileWriter;
+import java.util.UUID;
 
 import org.bukkit.permissions.PermissibleBase;
 import org.bukkit.entity.Player;
@@ -58,8 +59,10 @@ public class CPurge implements CommandExecutor
         if (args.length < 1) {
             Message.info(sender, command.getUsage());
             return true;
-        } else if (player.hasPermission("unicus.admin")) {
-            Player toPurge = Bukkit.getPlayer(args[0]);
+        } 
+        Player toPurge = Bukkit.getPlayer(args[0]);
+        if (player.hasPermission("unicus.admin") && !un.purges.contains(toPurge.getUniqueId())) {
+            un.purges.add(toPurge.getUniqueId());
             homes = homes + "/" + args[0] + ".yml";
             
             BufferedReader br = null;
