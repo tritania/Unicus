@@ -41,6 +41,12 @@ public class CPurge implements CommandExecutor
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
+        if (args.length < 1)
+        {
+            Message.info(sender, command.getUsage());
+            return true;
+        }
+        //else if () permisson check
         return true;
     }
     

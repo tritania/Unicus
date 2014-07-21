@@ -21,6 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -51,4 +52,18 @@ public class PlayerListener implements Listener
 	{
        
 	}
+    
+	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+	public void onPlayerQuit(PlayerQuitEvent event)
+	{
+       
+	}
+    
+    
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void playerCommand(PlayerCommandPreprocessEvent event) 
+    {
+        String raw = event.getMessage();
+        String[] splited = raw.split("\\s+");
+    }
 }
