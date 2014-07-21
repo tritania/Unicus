@@ -30,10 +30,11 @@ import org.tritania.unicus.utils.Log;
 import org.tritania.unicus.utils.Message;
 import org.tritania.unicus.command.*;
 import org.tritania.unicus.PlayerListener;
+import org.tritania.unicus.Storage;
 
 public class Unicus extends JavaPlugin
 {
-    
+    public Storage store;
     public String datalocal;
 	
 	public void onLoad()
@@ -53,6 +54,8 @@ public class Unicus extends JavaPlugin
         
         datalocal = getDataFolder().getAbsolutePath();
 		
+        store = new Storage(this);
+        
 		pm.registerEvents(new PlayerListener(this), this);
 		
 		getCommand("purge").setExecutor(new CPurge(this));

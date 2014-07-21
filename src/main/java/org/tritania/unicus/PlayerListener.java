@@ -64,6 +64,10 @@ public class PlayerListener implements Listener
     public void playerCommand(PlayerCommandPreprocessEvent event) 
     {
         String raw = event.getMessage();
-        String[] splited = raw.split("\\s+");
+        String[] args = raw.split("\\s+");
+        
+        Player player = event.getPlayer();
+        
+        //if (args[0].equals("/home"))
     }
 }
