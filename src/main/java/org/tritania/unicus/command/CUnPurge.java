@@ -37,19 +37,17 @@ import org.tritania.unicus.utils.Message;
 import org.tritania.unicus.utils.Log;
 /*End Imports*/
 
-public class CPurge implements CommandExecutor
+public class CUnPurge implements CommandExecutor
 {
     public Unicus un;
     private String homes; 
     private ArrayList<String> data;
-    private ArrayList<String> postdata;
 
-    public CPurge(Unicus un)
+    public CUnPurge(Unicus un)
     {
         this.un = un;
         this.homes = un.datalocal.replace("Unicus", "Essentials/userdata");
         this.data = new ArrayList<String>();
-        this.postdata = new ArrayList<String>();
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
@@ -60,9 +58,8 @@ public class CPurge implements CommandExecutor
             Message.info(sender, command.getUsage());
             return true;
         } 
-        
-        if (player.hasPermission("unicus.admin") && !un.purges.contains(args[0])) {
-            un.purges.add(args[0]);
+        Player toPurge = Bukkit.getPlayer(args[0]);
+        if (player.hasPermission("unicus.admin") && un.purges.contains(args[0])) {
             homes = homes + "/" + args[0] + ".yml";
             
             BufferedReader br = null;
@@ -74,6 +71,7 @@ public class CPurge implements CommandExecutor
                 br = new BufferedReader(new FileReader(homes));
      
                 while ((line = br.readLine()) != null) {
+                    line = line.replace("#", "");
                     data.add(line); 
                     System.out.println(line);
                 }
@@ -98,26 +96,10 @@ public class CPurge implements CommandExecutor
             }
         }
         
-        int i = 1;
-        boolean end = false;
-        for (String str: data) {
-            if (str.equals("afk: false") || str.equals("afk: true")) {
-                end = true;
-            }
-            if (end) {
-                postdata.add(str + System.getProperty("line.separator"));
-            } else if (i >= 21 && !str.equals("afk: false") && !str.equals("afk: true")) {
-                postdata.add("#" + str + System.getProperty("line.separator"));
-            }  else {
-                postdata.add(str + System.getProperty("line.separator"));
-            }
-            i++;
-        }
-        
         try 
             {
             FileWriter writer = new FileWriter(homes); 
-            for (String str: postdata) {
+            for (String str: data) {
                 writer.write(str);
             }
             writer.close();

@@ -38,7 +38,7 @@ public class Unicus extends JavaPlugin
 {
     public Storage store;
     public String datalocal;
-    public ArrayList<UUID> purges;
+    public ArrayList<String> purges;
 	
 	public void onLoad()
 	{
@@ -56,7 +56,7 @@ public class Unicus extends JavaPlugin
 		pm = getServer().getPluginManager();
         
         datalocal = getDataFolder().getAbsolutePath();
-        purges = new ArrayList<UUID>();
+        purges = new ArrayList<String>();
 		
         store = new Storage(this);
         
@@ -65,6 +65,7 @@ public class Unicus extends JavaPlugin
 		pm.registerEvents(new PlayerListener(this), this);
 		
 		getCommand("purge").setExecutor(new CPurge(this));
+		getCommand("unpurge").setExecutor(new CPurge(this));
 	}
 	
 	public void onDisable()

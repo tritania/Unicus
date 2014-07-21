@@ -12,3 +12,7 @@ commands:
     description: Purges multihomes
     aliases: []
     usage: /<command> [playername]
+  unpurge:
+    description: removes the purges of multihomes
+    aliases: []
+    usage: /<command> [playername]
