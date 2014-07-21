@@ -41,12 +41,14 @@ public class CPurge implements CommandExecutor
     public Unicus un;
     private String homes; 
     private ArrayList<String> data;
+    private ArrayList<String> postdata;
 
     public CPurge(Unicus un)
     {
         this.un = un;
         this.homes = un.datalocal.replace("Unicus", "Essentials/userdata");
         this.data = new ArrayList<String>();
+        this.postdata = new ArrayList<String>();
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
@@ -87,16 +89,22 @@ public class CPurge implements CommandExecutor
                 } 
                 catch (IOException ex) 
                 {
-                    Log.severe("Error: %s", e);
+                    Log.severe("Error: %s", ex);
                 }
             }
         }
         
-        //data processing
+        int i = 1;
+        for (String str: data) {
+            if (i >= 31 && !data.equals("afk: false") || !data.equals("afk: true")) {
+                postdata.add("#" + data);
+            }
+        }
+        
         try 
             {
             FileWriter writer = new FileWriter(homes); 
-            for(String str: data) {
+            for (String str: postdata) {
                 writer.write(str);
             }
             writer.close();
