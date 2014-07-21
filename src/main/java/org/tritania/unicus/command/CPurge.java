@@ -123,6 +123,7 @@ public class CPurge implements CommandExecutor
             {
                 Log.severe("Error: %s", ex);
             }
+            Message.info(sender, "Player " + args[0] + " has been purged");
         }
         return true;
     }

@@ -60,9 +60,8 @@ public class CUnPurge implements CommandExecutor
             Message.info(sender, "You don't have permisson for that!");
         }
         if (un.purges.contains(args[0])) {
+            Message.info(sender, "Player " + args[0] + " has been restored");
             homes = homes + "/" + args[0] + ".yml";
-            
-            System.out.println(homes);
             
             BufferedReader br = null;
  
@@ -74,6 +73,7 @@ public class CUnPurge implements CommandExecutor
      
                 while ((line = br.readLine()) != null) {
                     String linep = line.replace("#", "");
+                    linep = linep + System.getProperty("line.separator");
                     data.add(linep); 
                 }
             } 
@@ -108,6 +108,7 @@ public class CUnPurge implements CommandExecutor
         {
             Log.severe("Error: %s", ex);
         }
+        un.purges.remove(args[0]);
     } else {
         Message.info(sender, "This player was never purged");
     }
