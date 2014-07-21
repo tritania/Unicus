@@ -18,6 +18,8 @@
 package org.tritania.unicus;
 
 import java.io.File;
+import java.util.UUID;
+import java.util.ArrayList;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -36,6 +38,7 @@ public class Unicus extends JavaPlugin
 {
     public Storage store;
     public String datalocal;
+    public ArrayList<UUID> purges;
 	
 	public void onLoad()
 	{
@@ -53,8 +56,11 @@ public class Unicus extends JavaPlugin
 		pm = getServer().getPluginManager();
         
         datalocal = getDataFolder().getAbsolutePath();
+        purges = new ArrayList<UUID>();
 		
         store = new Storage(this);
+        
+        purges = store.loadPurges();
         
 		pm.registerEvents(new PlayerListener(this), this);
 		
@@ -63,6 +69,6 @@ public class Unicus extends JavaPlugin
 	
 	public void onDisable()
 	{
-		
+		store.savePurges(purges);
 	}
 }
