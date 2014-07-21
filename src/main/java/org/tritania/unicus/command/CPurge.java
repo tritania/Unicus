@@ -97,13 +97,17 @@ public class CPurge implements CommandExecutor
         
             int i = 1;
             boolean end = false;
+            boolean start = false;
             for (String str: data) {
                 if (str.equals("afk: false") || str.equals("afk: true")) {
                     end = true;
                 }
+                if (str.equals("homes:")) {
+                    start = true;
+                }
                 if (end) {
                     postdata.add(str + System.getProperty("line.separator"));
-                } else if (i >= 21 && !str.equals("afk: false") && !str.equals("afk: true")) {
+                } else if (start && !end) {
                     postdata.add("#" + str + System.getProperty("line.separator"));
                 }  else {
                     postdata.add(str + System.getProperty("line.separator"));
