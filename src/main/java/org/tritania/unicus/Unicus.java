@@ -33,6 +33,8 @@ import org.tritania.unicus.PlayerListener;
 
 public class Unicus extends JavaPlugin
 {
+    
+    public String datalocal;
 	
 	public void onLoad()
 	{
@@ -48,6 +50,8 @@ public class Unicus extends JavaPlugin
 		Message.init(getDescription().getName());
 		
 		pm = getServer().getPluginManager();
+        
+        datalocal = getDataFolder().getAbsolutePath();
 		
 		pm.registerEvents(new PlayerListener(this), this);
 		

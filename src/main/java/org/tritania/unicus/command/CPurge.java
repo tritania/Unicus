@@ -18,8 +18,13 @@
 package org.tritania.unicus.command;
 
 /*Start Imports*/
-import org.bukkit.permissions.PermissibleBase;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.io.FileWriter;
 
+import org.bukkit.permissions.PermissibleBase;
 import org.bukkit.entity.Player;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,26 +33,79 @@ import org.bukkit.Bukkit;
 
 import org.tritania.unicus.Unicus;
 import org.tritania.unicus.utils.Message;
+import org.tritania.unicus.utils.Log;
 /*End Imports*/
 
 public class CPurge implements CommandExecutor
 {
     public Unicus un;
+    private String homes; 
+    private ArrayList<String> data;
 
     public CPurge(Unicus un)
     {
         this.un = un;
+        this.homes = un.datalocal.replace("Unicus", "Essentials/userdata");
+        this.data = new ArrayList<String>();
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        if (args.length < 1)
-        {
+        System.out.println(homes);
+        Player player = (Player) sender; //need to check for console
+        if (args.length < 1) {
             Message.info(sender, command.getUsage());
             return true;
+        } else if (player.hasPermission("unicus.admin")) {
+            Player toPurge = Bukkit.getPlayer(args[0]);
+            homes = homes + "/" + args[0] + ".yml";
+            
+            BufferedReader br = null;
+ 
+            try 
+            {
+                String line;
+     
+                br = new BufferedReader(new FileReader(homes));
+     
+                while ((line = br.readLine()) != null) {
+                    data.add(line); 
+                }
+            } 
+            catch (IOException e) 
+            {
+                Log.severe("Error: %s", e);
+            } 
+            finally 
+            {
+                try 
+                {
+                    if (br != null)
+                    {
+                        br.close();
+                    }
+                } 
+                catch (IOException ex) 
+                {
+                    Log.severe("Error: %s", e);
+                }
+            }
         }
-        //else if () permisson check
+        
+        //data processing
+        try 
+            {
+            FileWriter writer = new FileWriter(homes); 
+            for(String str: data) {
+                writer.write(str);
+            }
+            writer.close();
+        }
+        catch (Exception ex)
+        {
+            Log.severe("Error: %s", ex);
+        }
+        
         return true;
     }
-    
 }
