@@ -1,0 +1,14 @@
+name: Unicus
+version: 1.0
+description: >
+  Glaciem server plugin
+author: Tritania
+website: https://github.com/tritania/Unicus
+
+main: org.tritania.unicus.Unicus
+
+commands:
+  purge:
+    description: Purges multihomes
+    aliases: []
+    usage: /<command> [playername]
