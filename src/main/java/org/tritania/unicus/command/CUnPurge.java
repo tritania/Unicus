@@ -56,8 +56,10 @@ public class CUnPurge implements CommandExecutor
         if (args.length < 1) {
             Message.info(sender, command.getUsage());
             return true;
-        } 
-        if (player.hasPermission("unicus.admin") && un.purges.contains(args[0])) {
+        } else if (!player.hasPermission("unicus.admin")) {
+            Message.info(sender, "You don't have permisson for that!");
+        }
+        if (un.purges.contains(args[0])) {
             homes = homes + "/" + args[0] + ".yml";
             
             System.out.println(homes);
@@ -106,6 +108,8 @@ public class CUnPurge implements CommandExecutor
         {
             Log.severe("Error: %s", ex);
         }
+    } else {
+        Message.info(sender, "This player was never purged");
     }
         
         return true;
