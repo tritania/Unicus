@@ -72,6 +72,7 @@ public class CPurge implements CommandExecutor
      
                 while ((line = br.readLine()) != null) {
                     data.add(line); 
+                    System.out.println(line);
                 }
             } 
             catch (IOException e) 
@@ -95,10 +96,19 @@ public class CPurge implements CommandExecutor
         }
         
         int i = 1;
+        boolean end = false;
         for (String str: data) {
-            if (i >= 31 && !data.equals("afk: false") || !data.equals("afk: true")) {
-                postdata.add("#" + data);
+            if (str.equals("afk: false") || str.equals("afk: true")) {
+                end = true;
             }
+            if (end) {
+                postdata.add(str + System.getProperty("line.separator"));
+            } else if (i >= 21 && !str.equals("afk: false") && !str.equals("afk: true")) {
+                postdata.add("#" + str + System.getProperty("line.separator"));
+            }  else {
+                postdata.add(str + System.getProperty("line.separator"));
+            }
+            i++;
         }
         
         try 
