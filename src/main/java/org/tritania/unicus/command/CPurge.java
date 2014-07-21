@@ -54,7 +54,6 @@ public class CPurge implements CommandExecutor
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        System.out.println(homes);
         Player player = (Player) sender; //need to check for console
         if (args.length < 1) {
             Message.info(sender, command.getUsage());
@@ -75,7 +74,6 @@ public class CPurge implements CommandExecutor
      
                 while ((line = br.readLine()) != null) {
                     data.add(line); 
-                    System.out.println(line);
                 }
             } 
             catch (IOException e) 

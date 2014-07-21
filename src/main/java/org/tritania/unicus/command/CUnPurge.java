@@ -73,7 +73,6 @@ public class CUnPurge implements CommandExecutor
                 while ((line = br.readLine()) != null) {
                     line = line.replace("#", "");
                     data.add(line); 
-                    System.out.println(line);
                 }
             } 
             catch (IOException e) 
@@ -94,7 +93,6 @@ public class CUnPurge implements CommandExecutor
                     Log.severe("Error: %s", ex);
                 }
             }
-        }
         
         try 
             {
@@ -108,6 +106,7 @@ public class CUnPurge implements CommandExecutor
         {
             Log.severe("Error: %s", ex);
         }
+    }
         
         return true;
     }
