@@ -16,3 +16,7 @@ commands:
     description: removes the purges of multihomes
     aliases: []
     usage: /<command> [playername]
+  plist:
+    description: list all purged players
+    aliases: []
+    usage: /<command>

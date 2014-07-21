@@ -66,7 +66,7 @@ public class Unicus extends JavaPlugin
 		
 		getCommand("purge").setExecutor(new CPurge(this));
 		getCommand("unpurge").setExecutor(new CPurge(this));
-		getCommand("plist").setExecutor(new CPurge(this));
+		getCommand("plist").setExecutor(new CPurgeList(this));
 	}
 	
 	public void onDisable()
