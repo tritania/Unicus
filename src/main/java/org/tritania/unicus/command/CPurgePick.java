@@ -41,6 +41,7 @@ import org.tritania.unicus.utils.Log;
 public class CPurgePick implements CommandExecutor
 {
     public Unicus un;
+    private String homes;
 
     public CPurgePick(Unicus un)
     {
@@ -51,13 +52,18 @@ public class CPurgePick implements CommandExecutor
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
         Player player = (Player) sender; //need to check for console
+        String name = player.getName();
         if (args.length < 1) {
             Message.info(sender, command.getUsage());
             return true;
-        } 
-        
-        if (un.purges.containsKey(sender.getName())) {
-            //allow them to pick their new home
+        } else if (un.purges.containsKey(name)) {
+            if (un.purges.get(name).equals("1")) {
+                //check for home args[0]
+            } else {
+                Message.info(sender, "You've already picked your home.");
+            }
+        } else {
+            Message.info(sender, "You don't have access to this command.");
         }
         return true;
     }
