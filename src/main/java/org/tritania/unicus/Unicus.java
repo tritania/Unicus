@@ -44,7 +44,7 @@ public class Unicus extends JavaPlugin
 	
 	public void onLoad()
 	{
-		
+		saveResource("readme.txt", true); 
 	}
 	
 	public void onEnable()

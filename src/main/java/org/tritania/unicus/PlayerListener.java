@@ -68,8 +68,8 @@ public class PlayerListener implements Listener
         
         Player player = event.getPlayer();
         
-        if (args[0].equals("/home") && args.length == 1 && un.purges.containsKey(player.getName())) {
-            if (un.purges.get(player.getName()).equals("1")) {
+        if (args[0].equals("/home") && un.purges.containsKey(player.getName())) {
+            if (un.purges.get(player.getName()).equals("1") && args.length == 1) {
                 Message.info(player, "Please pick your new main home with /pick [homename]");
                 Message.info(player, "The others will be locked as your rank has fallen");
                 Message.info(player, "To unlock them again simply donate");
