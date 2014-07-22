@@ -73,6 +73,11 @@ public class PlayerListener implements Listener
                 Message.info(player, "Please pick your new main home with /pick [homename]");
                 Message.info(player, "The others will be locked as your rank has fallen");
                 Message.info(player, "To unlock them again simply donate");
+            } if (un.purges.get(player.getName()).equals("1") && args.length == 2) {
+                Message.info(player, "Please pick your new main home with /pick [homename]");
+                Message.info(player, "The others will be locked as your rank has fallen");
+                Message.info(player, "To unlock them again simply donate");
+                event.setCancelled(true);
             } else if (args.length == 2 && args[1].equals(un.purges.get(player.getName()))) {
             } else {
                 event.setCancelled(true);
