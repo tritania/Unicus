@@ -42,11 +42,13 @@ public class CPurgePick implements CommandExecutor
 {
     public Unicus un;
     private String homes;
+    private boolean real;
 
     public CPurgePick(Unicus un)
     {
         this.un = un;
         this.homes = un.datalocal.replace("Unicus", "Essentials/userdata"); //will be used to check for home
+        this.real = false;
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
@@ -58,7 +60,47 @@ public class CPurgePick implements CommandExecutor
             return true;
         } else if (un.purges.containsKey(name)) {
             if (un.purges.get(name).equals("1")) {
-                //check for home args[0]
+                homes = homes + "/" + name + ".yml";
+                
+                BufferedReader br = null;
+     
+                try 
+                {
+                    String line;
+         
+                    br = new BufferedReader(new FileReader(homes));
+         
+                    while ((line = br.readLine()) != null) {
+                        if (line.equals("  " + args[0] + ":")) {
+                            real = true;
+                        }
+                    }
+                } 
+                catch (IOException e) 
+                {
+                    Log.severe("Error: %s", e);
+                } 
+                finally 
+                {
+                    try 
+                    {
+                        if (br != null)
+                        {
+                            br.close();
+                        }
+                    } 
+                    catch (IOException ex) 
+                    {
+                        Log.severe("Error: %s", ex);
+                    }
+                }
+                
+                if (real) {
+                    un.purges.put(name, args[0]);
+                } else {
+                    Message.info(sender, "No such home exists!");
+                }
+                
             } else {
                 Message.info(sender, "You've already picked your home.");
             }
