@@ -38,16 +38,14 @@ import org.tritania.unicus.utils.Message;
 import org.tritania.unicus.utils.Log;
 /*End Imports*/
 
-public class CPurge implements CommandExecutor
+public class CPurgePick implements CommandExecutor
 {
     public Unicus un;
-    private String homes = null; 
-    private ArrayList<String> data = new ArrayList<String>();
 
-    public CPurge(Unicus un)
+    public CPurgePick(Unicus un)
     {
         this.un = un;
-        this.homes = un.datalocal.replace("Unicus", "Essentials/userdata");
+        this.homes = un.datalocal.replace("Unicus", "Essentials/userdata"); //will be used to check for home
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
@@ -58,13 +56,8 @@ public class CPurge implements CommandExecutor
             return true;
         } 
         
-        if (player.hasPermission("unicus.admin") && !un.purges.containsKey(args[0])) {
-            un.purges.put(args[0], "1"); //number is safe as homes cannot start with that 
-            
-            Message.info(sender, "Player " + args[0] + " has been purged");
-            return true;
-        } else {
-                    
+        if (un.purges.containsKey(sender.getName())) {
+            //allow them to pick their new home
         }
         return true;
     }
