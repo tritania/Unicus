@@ -47,7 +47,6 @@ public class CPurgePick implements CommandExecutor
     public CPurgePick(Unicus un)
     {
         this.un = un;
-        this.homes = un.datalocal.replace("Unicus", "Essentials/userdata"); //will be used to check for home
         this.real = false;
     }
 
@@ -55,12 +54,13 @@ public class CPurgePick implements CommandExecutor
     {
         Player player = (Player) sender; //need to check for console
         String name = player.getName();
+        this.homes = un.datalocal.replace("Unicus", "Essentials/userdata"); //will be used to check for home
         if (args.length < 1) {
             Message.info(sender, command.getUsage());
             return true;
         } else if (un.purges.containsKey(name)) {
             if (un.purges.get(name).equals("1")) {
-                homes = homes + "/" + name + ".yml";
+                homes = homes + "/" + name.toLowerCase() + ".yml";
                 
                 BufferedReader br = null;
      
