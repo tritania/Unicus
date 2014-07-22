@@ -53,7 +53,7 @@ public class CUnPurge implements CommandExecutor
         if (args.length < 1) {
             Message.info(sender, command.getUsage());
             return true;
-        } else if (player.hasPermission("unicus.admin")) {
+        } else if (!player.hasPermission("unicus.admin")) {
             Message.info(sender, "You don't have permisson for that!");
         }
         if (un.purges.containsKey(args[0])) {

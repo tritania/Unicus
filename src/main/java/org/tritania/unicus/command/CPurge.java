@@ -58,13 +58,14 @@ public class CPurge implements CommandExecutor
             return true;
         } 
         
-        if (player.hasPermission("unicus.admin") && !un.purges.containsKey(args[0])) {
+        if (!player.hasPermission("unicus.admin")) {
+            Message.info(sender, "You don't have permission for that");
+        } else if (!un.purges.containsKey(args[0])) {
             un.purges.put(args[0], "1"); //number is safe as homes cannot start with that 
-            
             Message.info(sender, "Player " + args[0] + " has been purged");
             return true;
         } else {
-                    
+            Message.info(sender, "This player has already been purged");
         }
         return true;
     }
