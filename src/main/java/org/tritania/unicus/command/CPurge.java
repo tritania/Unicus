@@ -22,8 +22,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.io.FileWriter;
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.bukkit.permissions.PermissibleBase;
 import org.bukkit.entity.Player;
@@ -40,16 +41,13 @@ import org.tritania.unicus.utils.Log;
 public class CPurge implements CommandExecutor
 {
     public Unicus un;
-    private String homes; 
-    private ArrayList<String> data;
-    private ArrayList<String> postdata;
+    private String homes = null; 
+    private ArrayList<String> data = new ArrayList<String>();
 
     public CPurge(Unicus un)
     {
         this.un = un;
         this.homes = un.datalocal.replace("Unicus", "Essentials/userdata");
-        this.data = new ArrayList<String>();
-        this.postdata = new ArrayList<String>();
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
@@ -60,8 +58,7 @@ public class CPurge implements CommandExecutor
             return true;
         } 
         
-        if (player.hasPermission("unicus.admin") && !un.purges.contains(args[0])) {
-            un.purges.add(args[0]);
+        if (player.hasPermission("unicus.admin") && !un.purges.containsKey(args[0])) {
             homes = homes + "/" + args[0] + ".yml";
             
             BufferedReader br = null;
@@ -95,39 +92,20 @@ public class CPurge implements CommandExecutor
                 }
             }
         
-            int i = 1;
-            boolean end = false;
             boolean start = false;
-            for (String str: data) {
-                if (str.equals("afk: false") || str.equals("afk: true")) {
-                    end = true;
-                }
+            for (String str: data) { 
                 if (str.equals("homes:")) {
                     start = true;
+                } else if (start && str.indexOf(' ') == 0) {
+                    un.purges.put(args[0], str);
+                    System.out.println(args[0] + " " + str);
+                    Message.info(sender, "Player " + args[0] + " has been purged");
+                    return true;
+                } else {
+                    
                 }
-                if (end) {
-                    postdata.add(str + System.getProperty("line.separator"));
-                } else if (start && !end) {
-                    postdata.add("#" + str + System.getProperty("line.separator"));
-                }  else {
-                    postdata.add(str + System.getProperty("line.separator"));
-                }
-                i++;
             }
             
-            try 
-                {
-                FileWriter writer = new FileWriter(homes); 
-                for (String str: postdata) {
-                    writer.write(str);
-                }
-                writer.close();
-            }
-            catch (Exception ex)
-            {
-                Log.severe("Error: %s", ex);
-            }
-            Message.info(sender, "Player " + args[0] + " has been purged");
         }
         return true;
     }

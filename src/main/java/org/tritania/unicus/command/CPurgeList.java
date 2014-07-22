@@ -18,12 +18,9 @@
 package org.tritania.unicus.command;
 
 /*Start Imports*/
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.io.FileWriter;
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.bukkit.permissions.PermissibleBase;
 import org.bukkit.entity.Player;
@@ -49,10 +46,11 @@ public class CPurgeList implements CommandExecutor
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
         String names = "Purged players are: ";
-        for (String str : un.purges)
+        for (Object key : un.purges.keySet())
         {
-            names += str + " ";
+            names += key.toString() + " ";
         }
+    
         Message.info(sender, names);
         return true;
     }

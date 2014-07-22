@@ -45,7 +45,7 @@ public class Storage implements Serializable
         this.un = un;
     }
     
-    public void savePurges(ArrayList<String> purges)
+    public void savePurges(HashMap<String, String> purges)
     {
         try
         {
@@ -64,16 +64,16 @@ public class Storage implements Serializable
         }
     }
 
-    public ArrayList<String> loadPurges()
+    public HashMap<String, String> loadPurges()
     {
-        ArrayList<String> values = new ArrayList<String>();
+        HashMap<String, String> values = new HashMap<String, String>();
         try
         {
             File data =  new File(un.datalocal + "/purge.data");
             FileInputStream fis  = new FileInputStream(data);
             ObjectInputStream ois= new ObjectInputStream(fis);
 
-            values = (ArrayList<String>)ois.readObject();
+            values = (HashMap<String, String>)ois.readObject();
 
             ois.close();
             fis.close();

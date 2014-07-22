@@ -19,7 +19,9 @@ package org.tritania.unicus;
 
 import java.io.File;
 import java.util.UUID;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -38,7 +40,7 @@ public class Unicus extends JavaPlugin
 {
     public Storage store;
     public String datalocal;
-    public ArrayList<String> purges;
+    public HashMap<String, String> purges = new HashMap<String, String>();
 	
 	public void onLoad()
 	{
@@ -56,7 +58,6 @@ public class Unicus extends JavaPlugin
 		pm = getServer().getPluginManager();
         
         datalocal = getDataFolder().getAbsolutePath();
-        purges = new ArrayList<String>();
 		
         store = new Storage(this);
         
