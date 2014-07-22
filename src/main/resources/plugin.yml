@@ -20,3 +20,7 @@ commands:
     description: list all purged players
     aliases: []
     usage: /<command>
+  pick:
+    description: pick your new main home 
+    aliases: []
+    usage: /<command> [homename]
