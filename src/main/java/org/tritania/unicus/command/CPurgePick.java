@@ -97,6 +97,7 @@ public class CPurgePick implements CommandExecutor
                 
                 if (real) {
                     un.purges.put(name, args[0]);
+                    Message.info(sender, "Home " + args[0] + " set as main home.");
                 } else {
                     Message.info(sender, "No such home exists!");
                 }
