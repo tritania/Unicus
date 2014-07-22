@@ -49,11 +49,10 @@ public class CUnPurge implements CommandExecutor
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        Player player = (Player) sender; //need to check for console
         if (args.length < 1) {
             Message.info(sender, command.getUsage());
             return true;
-        } else if (!player.hasPermission("unicus.admin")) {
+        } else if (!sender.hasPermission("unicus.admin")) {
             Message.info(sender, "You don't have permisson for that!");
         }
         if (un.purges.containsKey(args[0])) {

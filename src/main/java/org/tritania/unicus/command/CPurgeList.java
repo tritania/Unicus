@@ -45,8 +45,7 @@ public class CPurgeList implements CommandExecutor
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        Player player = (Player) sender;
-        if (player.hasPermission("unicus.admin")) {
+        if (sender.hasPermission("unicus.admin")) {
             String names = "Purged players are: ";
             for (Object key : un.purges.keySet())
             {

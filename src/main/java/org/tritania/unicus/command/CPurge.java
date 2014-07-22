@@ -52,13 +52,12 @@ public class CPurge implements CommandExecutor
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        Player player = (Player) sender; //need to check for console
         if (args.length < 1) {
             Message.info(sender, command.getUsage());
             return true;
         } 
         
-        if (!player.hasPermission("unicus.admin")) {
+        if (!sender.hasPermission("unicus.admin")) {
             Message.info(sender, "You don't have permission for that");
         } else if (!un.purges.containsKey(args[0])) {
             un.purges.put(args[0], "1"); //number is safe as homes cannot start with that 

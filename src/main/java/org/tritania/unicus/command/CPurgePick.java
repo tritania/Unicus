@@ -52,7 +52,7 @@ public class CPurgePick implements CommandExecutor
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        Player player = (Player) sender; //need to check for console
+        Player player = (Player) sender; 
         String name = player.getName();
         this.homes = un.datalocal.replace("Unicus", "Essentials/userdata"); //will be used to check for home
         if (args.length < 1) {
