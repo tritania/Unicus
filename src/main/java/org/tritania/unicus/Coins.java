@@ -112,4 +112,9 @@ public class Coins
         }
         return false;
     }
+    
+    public boolean store (Player player, String item) 
+    {
+        return false; //this method is for building out the store 
+    }
 }

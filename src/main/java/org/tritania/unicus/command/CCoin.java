@@ -26,6 +26,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.Bukkit;
 
 import org.tritania.unicus.Unicus;
+import org.tritania.unicus.Coins;
 import org.tritania.unicus.utils.Message;
 import org.tritania.unicus.utils.Log;
 /*End Imports*/
@@ -41,8 +42,10 @@ public class CCoin implements CommandExecutor
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
+        Player player = (Player) sender;
+        
         if (args.length < 1) {
-            //displays balance aswell
+            Coins.balance(player);
             Message.info(sender, command.getUsage());
             return true;
         }
@@ -50,13 +53,17 @@ public class CCoin implements CommandExecutor
         if (args[0].equals("store")) {
             
         } else if (args[0].equals("add")) {
-            
+            if (player.hasPermission("unicus.coins.admin")) {
+                
+            }
         } else if (args[0].equals("remove")) {
-            
+            if (player.hasPermission("unicus.coins.admin")) {
+                
+            }
         } else if (args[0].equals("transfer")) {
         
         } else {
-            //not a valid command
+            Message.info(sender, command.getUsage());
         }
          
         return true;
