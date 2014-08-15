@@ -22,9 +22,9 @@ import java.util.Map;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -36,7 +36,8 @@ import org.tritania.unicus.Unicus;
 public class PlayerListener implements Listener
 {
 	private Unicus un;
-    public HashMap<String, Integer> gains = new HashMap<String, Integer>(); //tracks player gains
+    private int BLOCKS = 576;
+    private HashMap<String, Integer> gains = new HashMap<String, Integer>(); //tracks player gains
 
 	public PlayerListener(Unicus un)
 	{
@@ -50,19 +51,35 @@ public class PlayerListener implements Listener
 		manager = un.getServer().getPluginManager();
 		manager.registerEvents(this, un);
 	} 
-	
-	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-	public void onPlayerJoin(PlayerJoinEvent event)
-	{
-       
-	}
     
-	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-	public void onPlayerQuit(PlayerQuitEvent event)
-	{
-       
-	}
     
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
+    public void playerBlockBreak(BlockBreakEvent event)
+    {
+        Player player = event.getPlayer();
+        String name = player.getName();
+        
+        int amount = gains.get(name);
+        gains.put(name, amount + 1);
+        
+        if (amount + 1 == BLOCKS) {
+            un.coin.add(player, 1);
+        }
+    }
+    
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
+    public void playerBlockPlace(BlockPlaceEvent event)
+    {
+        Player player = event.getPlayer();
+        String name = player.getName();
+        
+        int amount = gains.get(name);
+        gains.put(name, amount + 1);
+        
+        if (amount + 1 == BLOCKS) {
+            un.coin.add(player, 1);
+        }
+    }
     
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void playerCommand(PlayerCommandPreprocessEvent event) 

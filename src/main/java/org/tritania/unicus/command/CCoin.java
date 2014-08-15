@@ -45,7 +45,7 @@ public class CCoin implements CommandExecutor
         Player player = (Player) sender;
         
         if (args.length < 1) {
-            Coins.balance(player);
+            un.coin.balance(player);
             Message.info(sender, command.getUsage());
             return true;
         }
@@ -54,14 +54,20 @@ public class CCoin implements CommandExecutor
             
         } else if (args[0].equals("add")) {
             if (player.hasPermission("unicus.coins.admin")) {
-                
+                Player playr = Bukkit.getPlayer(args[1]);
+                un.coin.add(playr, Integer.parseInt(args[2]));
             }
         } else if (args[0].equals("remove")) {
             if (player.hasPermission("unicus.coins.admin")) {
-                
+                Player playr = Bukkit.getPlayer(args[1]);
+                un.coin.remove(playr, Integer.parseInt(args[2]));                
             }
         } else if (args[0].equals("transfer")) {
-        
+            if (un.coin.transfer(player, Bukkit.getPlayer(args[1]), Integer.parseInt(args[2]))) {
+                Message.info(sender, "Transfer complete");
+            } else {
+                Message.info(sender, "Transfer could not be made!");
+            }
         } else {
             Message.info(sender, command.getUsage());
         }

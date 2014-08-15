@@ -39,6 +39,7 @@ import org.tritania.unicus.Storage;
 public class Unicus extends JavaPlugin
 {
     public Storage store;
+    public Coins coin;
     public String datalocal;
     public HashMap<String, String> purges = new HashMap<String, String>();
     public HashMap<String, Integer> coins = new HashMap<String, Integer>();
@@ -61,6 +62,7 @@ public class Unicus extends JavaPlugin
         datalocal = getDataFolder().getAbsolutePath();
 		
         store = new Storage(this);
+        coin = new Coins(this);
         
         purges = store.loadPurges();
         
