@@ -15,37 +15,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.tritania.unicus.command;
+package org.tritania.unicus;
 
-/*Start Imports*/
-import org.bukkit.permissions.PermissibleBase;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import org.bukkit.entity.Player;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.Bukkit;
 
 import org.tritania.unicus.Unicus;
-import org.tritania.unicus.utils.Message;
 import org.tritania.unicus.utils.Log;
-/*End Imports*/
 
-public class CCoinRemove implements CommandExecutor
+public class Coins
 {
     public Unicus un;
 
-    public CCoinRemove(Unicus un)
+    public Coins (Unicus un)
     {
         this.un = un;
     }
-
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+    
+    public void add (Player player, int amount) 
     {
-        if (args.length < 1) {
-            Message.info(sender, command.getUsage());
-            return true;
-        } 
-        return true;
+        
+    }
+    
+    public void remove (Player player, int amount) 
+    {
+        
+    }
+    
+    public void transfer (Player to, Player from, int amount)
+    {
+        
+    }
+    
+    public boolean coinCheck(Player player, int amount) 
+    {
+        return true; //debugging
     }
 }
-

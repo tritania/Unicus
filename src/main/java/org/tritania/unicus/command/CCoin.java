@@ -30,11 +30,11 @@ import org.tritania.unicus.utils.Message;
 import org.tritania.unicus.utils.Log;
 /*End Imports*/
 
-public class CCoinAdd implements CommandExecutor
+public class CCoin implements CommandExecutor
 {
     public Unicus un;
 
-    public CCoinAdd(Unicus un)
+    public CCoin(Unicus un)
     {
         this.un = un;
     }
@@ -42,9 +42,24 @@ public class CCoinAdd implements CommandExecutor
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
         if (args.length < 1) {
+            //displays balance aswell
             Message.info(sender, command.getUsage());
             return true;
-        } 
+        }
+        
+        if (args[0].equals("store")) {
+            
+        } else if (args[0].equals("add")) {
+            
+        } else if (args[0].equals("remove")) {
+            
+        } else if (args[0].equals("transfer")) {
+        
+        } else {
+            //not a valid command
+        }
+         
         return true;
     }
 }
+
