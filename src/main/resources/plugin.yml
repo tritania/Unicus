@@ -24,3 +24,19 @@ commands:
     description: pick your new main home 
     aliases: []
     usage: /<command> [homename]
+  transfer:
+    description: transfer coins 
+    aliases: []
+    usage: /<command> [username] [amount]
+  store:
+    description: access to the adept store 
+    aliases: []
+    usage: /<command> [item] | [list]
+  cadd:
+    description: add a variable amount of coins 
+    aliases: []
+    usage: /<command> [username] [amount]
+  cdel:
+    description: remove a variable amount of coins 
+    aliases: []
+    usage: /<command> [username] [amount]

@@ -17,6 +17,9 @@
  
 package org.tritania.unicus;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -33,6 +36,7 @@ import org.tritania.unicus.Unicus;
 public class PlayerListener implements Listener
 {
 	private Unicus un;
+    public HashMap<String, Integer> gains = new HashMap<String, Integer>(); //tracks player gains
 
 	public PlayerListener(Unicus un)
 	{
