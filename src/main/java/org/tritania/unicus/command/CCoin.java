@@ -42,7 +42,7 @@ public class CCoin implements CommandExecutor
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        Player player = (Player) sender;
+        Player player = (Player) sender; //need to check for console
         
         if (args.length < 1) {
             un.coin.balance(player);
@@ -51,7 +51,19 @@ public class CCoin implements CommandExecutor
         }
         
         if (args[0].equals("store")) {
-            
+            if (args[1].equals("list")) {
+                un.coin.storeList(player);
+            } else if (args[1].equals("buy") && args.length == 3) {
+                if (un.coin.buy(player, args[2])) {
+                    Message.info(sender, "Purchase complete!");
+                } else {
+                    Message.info(sender, "Something went wrong with your purchase!");
+                }
+            } else if (args[1].equals("add") && args.length == 5 && player.hasPermission("unicus.coins.admin")) {
+                un.coin.addStoreItem(args[2], args[3], Integer.parseInt(args[4]));
+            } else {
+                Message.info(sender, command.getUsage());
+            }
         } else if (args[0].equals("add")) {
             if (player.hasPermission("unicus.coins.admin")) {
                 Player playr = Bukkit.getPlayer(args[1]);
