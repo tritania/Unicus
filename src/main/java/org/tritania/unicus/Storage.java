@@ -84,4 +84,44 @@ public class Storage implements Serializable
         }
         return values;
     }
+    
+    public void saveCoins(HashMap<String, Integer> coins)
+    {
+        try
+        {
+            File data =  new File(un.datalocal + "/coins.data");
+            FileOutputStream fos   = new FileOutputStream(data);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(coins);
+            oos.flush();
+            oos.close();
+            fos.close();
+        }
+        catch(Exception ex)
+        {
+            Log.severe("File IO error: " + ex.getMessage());
+        }
+    }
+
+    public HashMap<String, Integer> loadCoins()
+    {
+        HashMap<String, Integer> values = new HashMap<String, Integer>();
+        try
+        {
+            File data =  new File(un.datalocal + "/coins.data");
+            FileInputStream fis  = new FileInputStream(data);
+            ObjectInputStream ois= new ObjectInputStream(fis);
+
+            values = (HashMap<String, Integer>)ois.readObject();
+
+            ois.close();
+            fis.close();
+        }
+        catch(Exception ex)
+        {
+            Log.severe("File IO error: " + ex.getMessage());
+        }
+        return values;
+    }
 }

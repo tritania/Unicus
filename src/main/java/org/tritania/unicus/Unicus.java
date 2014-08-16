@@ -65,6 +65,7 @@ public class Unicus extends JavaPlugin
         coin = new Coins(this);
         
         purges = store.loadPurges();
+        coins = store.loadCoins();
         
 		pm.registerEvents(new PlayerListener(this), this);
 		
@@ -79,5 +80,6 @@ public class Unicus extends JavaPlugin
 	public void onDisable()
 	{
 		store.savePurges(purges);
+        store.saveCoins(coins);
 	}
 }
