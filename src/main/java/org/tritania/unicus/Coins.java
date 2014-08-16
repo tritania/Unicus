@@ -19,6 +19,7 @@ package org.tritania.unicus;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.bukkit.entity.Player;
@@ -64,6 +65,8 @@ public class Coins
         Score balance = objective.getScore(Bukkit.getOfflinePlayer("Balance: "));
         
         balance.setScore(un.coins.get(player.getName()));
+        
+        balanceTimer(player);
     }
     
     public void removeBoard(Player player)
@@ -124,5 +127,28 @@ public class Coins
     public boolean buy (Player player, String item) 
     {
         return false; //returns true if purchase was a success
+    }
+    
+    public void storeList(Player player)
+    {
+        ScoreboardManager mang = Bukkit.getScoreboardManager();
+        Scoreboard board = mang.getNewScoreboard();
+
+        Objective objective = board.registerNewObjective("Stats", "dummy");
+
+        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        objective.setDisplayName(ChatColor.BLUE +  "Store!");
+        
+        Iterator<Map.Entry<String, Merchandise>> iterator = items.entrySet().iterator();
+        while(iterator.hasNext())
+        {
+            Map.Entry<String, Merchandise> entry = iterator.next();
+            Score temp = objective.getScore(Bukkit.getOfflinePlayer(entry.getKey() + ": "));
+            temp.setScore(entry.getValue().getPrice());
+        }
+
+        Score balance = objective.getScore(Bukkit.getOfflinePlayer("Balance: "));
+        
+        balanceTimer(player);
     }
 }
