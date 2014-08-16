@@ -126,7 +126,11 @@ public class Coins
     
     public boolean buy (Player player, String item) 
     {
-        return false; //returns true if purchase was a success
+        if (items.containsKey(item) && coinCheck(player, items.get(item).getPrice())) {
+            Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), items.get(item).getCommand());
+            return true;
+        }
+        return false; 
     }
     
     public void storeList(Player player)
