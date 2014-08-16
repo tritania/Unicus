@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.tritania.stables;
+package org.tritania.unicus;
 
 /*Start Imports*/
 import java.io.File;
@@ -31,7 +31,7 @@ public class Merchandise extends YamlConfiguration
     private String command;
     private int price;
     
-    public Merchandise (String name, String command, int price)
+    public Merchandise (String command, int price)
     {
        this.command = command;
        this.price = price;

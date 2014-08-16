@@ -32,20 +32,24 @@ import org.bukkit.ChatColor;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import org.tritania.unicus.Unicus;
+import org.tritania.unicus.Merchandise;
 import org.tritania.unicus.utils.Log;
 
 public class Coins
 {
     public Unicus un;
+    private HashMap<String, Merchandise> items = new HashMap<String, Merchandise>();
 
     public Coins (Unicus un)
     {
         this.un = un;
+        //items = store.loadStore();
     }
     
-    public void addStoreItem(String command, int price)
+    public void addStoreItem(String name, String command, int price)
     {
-        
+        Merchandise temp = new Merchandise(command, price);
+        items.put(name, temp);
     }
     
     public void balance (Player player)
