@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import org.bukkit.entity.Player;
 
 import org.tritania.unicus.Unicus;
+import org.tritania.unicus.Merchandise;
 import org.tritania.unicus.utils.Log;
 
 public class Storage implements Serializable
@@ -114,6 +115,46 @@ public class Storage implements Serializable
             ObjectInputStream ois= new ObjectInputStream(fis);
 
             values = (HashMap<String, Integer>)ois.readObject();
+
+            ois.close();
+            fis.close();
+        }
+        catch(Exception ex)
+        {
+            Log.severe("File IO error: " + ex.getMessage());
+        }
+        return values;
+    }
+    
+    public void saveStore (HashMap<String, Merchandise> items)
+    {
+        try
+        {
+            File data =  new File(un.datalocal + "/store.data");
+            FileOutputStream fos   = new FileOutputStream(data);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(items);
+            oos.flush();
+            oos.close();
+            fos.close();
+        }
+        catch(Exception ex)
+        {
+            Log.severe("File IO error: " + ex.getMessage());
+        }
+    }
+
+    public HashMap<String, Merchandise> loadStore()
+    {
+        HashMap<String, Merchandise> values = new HashMap<String, Merchandise>();
+        try
+        {
+            File data =  new File(un.datalocal + "/store.data");
+            FileInputStream fis  = new FileInputStream(data);
+            ObjectInputStream ois= new ObjectInputStream(fis);
+
+            values = (HashMap<String, Merchandise>)ois.readObject();
 
             ois.close();
             fis.close();

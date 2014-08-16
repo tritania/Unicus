@@ -38,12 +38,11 @@ import org.tritania.unicus.utils.Log;
 public class Coins
 {
     public Unicus un;
-    private HashMap<String, Merchandise> items = new HashMap<String, Merchandise>();
+    public HashMap<String, Merchandise> items = new HashMap<String, Merchandise>();
 
     public Coins (Unicus un)
     {
         this.un = un;
-        //items = store.loadStore();
     }
     
     public void addStoreItem(String name, String command, int price)
