@@ -43,6 +43,11 @@ public class Coins
         this.un = un;
     }
     
+    public void addStoreItem(String command, int price)
+    {
+        
+    }
+    
     public void balance (Player player)
     {
         ScoreboardManager mang = Bukkit.getScoreboardManager();
@@ -113,8 +118,8 @@ public class Coins
         return false;
     }
     
-    public boolean store (Player player, String item) 
+    public boolean buy (Player player, String item) 
     {
-        return false; //this method is for building out the store 
+        return false; //returns true if purchase was a success
     }
 }
