@@ -25,6 +25,8 @@ import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -52,6 +54,22 @@ public class PlayerListener implements Listener
 		manager.registerEvents(this, un);
 	} 
     
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    public void onPlayerJoin(PlayerJoinEvent event)
+    {
+        Player player = event.getPlayer();
+        if(!un.coins.containsKey(player.getName())) {
+            un.coins.put(player.getName(), 0);
+        }
+        gains.put(player.getName(), 0);
+    }
+
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    public void onPlayerLeave(PlayerQuitEvent event)
+    {
+       Player player = event.getPlayer();
+       gains.remove(player.getName());
+    }
     
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
     public void playerBlockBreak(BlockBreakEvent event)
