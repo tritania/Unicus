@@ -17,18 +17,10 @@
 
 package org.tritania.unicus;
 
-/*Start Imports*/
-import java.io.File;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import org.tritania.unicus.utils.Log;
-import org.tritania.unicus.Unicus;
-/*End Imports*/
-
 public class Merchandise extends YamlConfiguration
 {
     private String command;
+    private String excommand; //expiry command
     private int price;
     
     public Merchandise (String command, int price)
@@ -45,6 +37,11 @@ public class Merchandise extends YamlConfiguration
     public String getCommand()
     {
         return command;
+    }
+    
+    public String getExpiredCommand()
+    {
+        return excommand;
     }
 }
 
