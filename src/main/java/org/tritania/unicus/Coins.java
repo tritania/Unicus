@@ -125,13 +125,14 @@ public class Coins
         return false;
     }
     
-    public boolean buy (Player player, String item) 
+    public String buy (Player player, String item)  //returning a string allows for variable passing in the future
     {
         if (items.containsKey(item) && coinCheck(player, items.get(item).getPrice())) {
             Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), items.get(item).getCommand());
-            return true;
+            remove(player, items.get(item).getPrice());
+            return "Your purchase was a success!";
         }
-        return false; 
+        return "Something went wrong with your purchase!"; 
     }
     
     public void storeList(Player player)

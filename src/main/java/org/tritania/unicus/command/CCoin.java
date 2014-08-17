@@ -54,11 +54,7 @@ public class CCoin implements CommandExecutor
             if (args[1].equals("list")) {
                 un.coin.storeList(player);
             } else if (args[1].equals("buy") && args.length == 3) {
-                if (un.coin.buy(player, args[2])) {
-                    Message.info(sender, "Purchase complete!");
-                } else {
-                    Message.info(sender, "Something went wrong with your purchase!");
-                }
+                Message.info(sender, un.coin.buy(player, args[2]));
             } else if (args[1].equals("add") && args.length == 5 && player.hasPermission("unicus.coins.admin")) {
                 un.coin.addStoreItem(args[2], args[3], Integer.parseInt(args[4]));
             } else {
