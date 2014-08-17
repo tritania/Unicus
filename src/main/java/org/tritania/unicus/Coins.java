@@ -66,6 +66,7 @@ public class Coins
         
         balance.setScore(un.coins.get(player.getName()));
         
+        player.setScoreboard(board);
         balanceTimer(player);
     }
     
