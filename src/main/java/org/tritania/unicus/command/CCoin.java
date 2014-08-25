@@ -50,25 +50,15 @@ public class CCoin implements CommandExecutor
             return true;
         }
         
-        if (args[0].equals("store")) {
-            if (args[1].equals("list")) {
-                un.coin.storeList(player);
-            } else if (args[1].equals("buy") && args.length == 3) {
-                Message.info(sender, un.coin.buy(player, args[2]));
-            } else if (args[1].equals("add") && args.length == 5 && player.hasPermission("unicus.coins.admin")) {
-                un.coin.addStoreItem(args[2], args[3], Integer.parseInt(args[4]));
-            } else {
-                Message.info(sender, command.getUsage());
-            }
-        } else if (args[0].equals("add")) {
+        if (args[0].equals("add")) {
             if (player.hasPermission("unicus.coins.admin")) {
                 Player playr = Bukkit.getPlayer(args[1]);
-                un.coin.add(playr, Integer.parseInt(args[2]));
+                un.data.get(playr.getName()).addCoins(Integer.parseInt(args[2]));
             }
         } else if (args[0].equals("remove")) {
             if (player.hasPermission("unicus.coins.admin")) {
                 Player playr = Bukkit.getPlayer(args[1]);
-                un.coin.remove(playr, Integer.parseInt(args[2]));                
+                un.data.get(playr.getName()).removeCoins(Integer.parseInt(args[2]));                
             }
         } else if (args[0].equals("transfer")) {
             if (un.coin.transfer(player, Bukkit.getPlayer(args[1]), Integer.parseInt(args[2]))) {

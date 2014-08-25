@@ -31,9 +31,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
+
 import org.tritania.unicus.utils.Log;
 import org.tritania.unicus.utils.Message;
 import org.tritania.unicus.Unicus;
+import org.tritania.unicus.UPlayer;
 
 public class PlayerListener implements Listener
 {
@@ -58,8 +60,8 @@ public class PlayerListener implements Listener
     public void onPlayerJoin(PlayerJoinEvent event)
     {
         Player player = event.getPlayer();
-        if(!un.coins.containsKey(player.getName())) {
-            un.coins.put(player.getName(), 0);
+        if(!un.data.containsKey(player.getName())) {
+            un.data.put(player.getName(), new UPlayer());
         }
         gains.put(player.getName(), 0);
     }
@@ -81,7 +83,7 @@ public class PlayerListener implements Listener
         gains.put(name, amount + 1);
         
         if (amount + 1 == BLOCKS) {
-            un.coin.add(player, 1);
+            un.data.get(name).addCoins(1);
         }
     }
     
@@ -95,7 +97,20 @@ public class PlayerListener implements Listener
         gains.put(name, amount + 1);
         
         if (amount + 1 == BLOCKS) {
-            un.coin.add(player, 1);
+            un.data.get(name).addCoins(1);
+        }
+    }
+    
+     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void playerCommand(PlayerCommandPreprocessEvent event) 
+    {
+        String raw = event.getMessage();
+        String[] args = raw.split("\\s+");
+        
+        Player player = event.getPlayer();
+        
+        if (args[0].equals("/setwarp") && un.data.containsKey(player.getName())) {
+            
         }
     }
 }

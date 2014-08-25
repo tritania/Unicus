@@ -35,13 +35,14 @@ import org.tritania.unicus.utils.Message;
 import org.tritania.unicus.command.*;
 import org.tritania.unicus.PlayerListener;
 import org.tritania.unicus.Storage;
+import org.tritania.unicus.UPlayer;
 
 public class Unicus extends JavaPlugin
 {
     public Storage store;
     public Coins coin;
     public String datalocal;
-    public HashMap<String, Integer> coins = new HashMap<String, Integer>();
+    public HashMap<String, UPlayer> data = new HashMap<String, UPlayer>();
 	
 	public void onLoad()
 	{
@@ -63,8 +64,7 @@ public class Unicus extends JavaPlugin
         store = new Storage(this);
         coin = new Coins(this);
         
-        coins = store.loadCoins();
-        coin.items = store.loadStore();
+        data = store.loadData();
         
 		pm.registerEvents(new PlayerListener(this), this);
 		
@@ -74,7 +74,6 @@ public class Unicus extends JavaPlugin
 	
 	public void onDisable()
 	{
-        store.saveCoins(coins);
-        store.saveStore(coin.items);
+        store.saveData(data);
 	}
 }

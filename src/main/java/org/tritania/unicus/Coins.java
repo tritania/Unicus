@@ -33,23 +33,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import org.tritania.unicus.Unicus;
-import org.tritania.unicus.Merchandise;
+import org.tritania.unicus.UPlayer;
 import org.tritania.unicus.utils.Log;
 
 public class Coins
 {
     public Unicus un;
-    public HashMap<String, Merchandise> items = new HashMap<String, Merchandise>();
 
     public Coins (Unicus un)
     {
         this.un = un;
-    }
-    
-    public void addStoreItem(String name, String command, int price)
-    {
-        Merchandise temp = new Merchandise(command, price);
-        items.put(name, temp);
     }
     
     public void balance (Player player)
@@ -64,7 +57,7 @@ public class Coins
 
         Score balance = objective.getScore(Bukkit.getOfflinePlayer("Balance: "));
         
-        balance.setScore(un.coins.get(player.getName()));
+        balance.setScore(un.data.get(player.getName()).getCoins());
         
         player.setScoreboard(board);
         balanceTimer(player);
@@ -90,41 +83,25 @@ public class Coins
         }.runTaskLater(un, 1200); 
     }
     
-    public void add (Player player, int amount) 
-    {
-        int current = un.coins.get(player.getName());
-        un.coins.put(player.getName(), (current + amount));
-    }
-    
-    public void remove (Player player, int amount) 
-    {
-        int current = un.coins.get(player.getName());
-        if (current <= amount) {
-            un.coins.put(player.getName(), 0);
-        } else {
-            un.coins.put(player.getName(), (current - amount));
-        }
-    }
-    
     public boolean transfer (Player to, Player from, int amount)
     {
-        if (coinCheck(from, amount)) {
-            remove(from, amount);
-            add(to, amount);
+        if (un.data.containsKey(to.getName())) 
+        {
+            UPlayer uto = un.data.get(to.getName());
+            UPlayer ufrom = un.data.get(from.getName());
+            
+            uto.removeCoins(amount);
+            ufrom.addCoins(amount);
+            
             return true;
-        } else {
+        } 
+        else 
+        {
             return false;
         }
     }
     
-    public boolean coinCheck(Player player, int amount) 
-    {
-        if (un.coins.get(player.getName()) < amount) {
-            return true;
-        }
-        return false;
-    }
-    
+    /* currently not needed as plugin is overhauled
     public String buy (Player player, String item)  //returning a string allows for variable passing in the future
     {
         if (items.containsKey(item) && coinCheck(player, items.get(item).getPrice())) {
@@ -157,4 +134,5 @@ public class Coins
         
         balanceTimer(player);
     }
+    * */
 }

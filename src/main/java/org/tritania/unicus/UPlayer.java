@@ -17,32 +17,50 @@
 
 package org.tritania.unicus;
 
-public class Merchandise 
+public class UPlayer 
 {
-    private String command;
-    private String excommand; //expiry command
-    private int price;
+    private int gains;
+    private int coins;
+    private String warp;
     
-    public Merchandise (String command, int price)
+    public UPlayer ()
     {
-       this.command = command;
-       this.price = price;
+        this.warp = "000"; //warps cannot start with a number
     }
     
-    public int getPrice()
+    public void addCoins (int amount)
     {
-        return price;
+        this.coins = this.coins + amount;
     }
     
-    public String getCommand()
+    public void removeCoins (int amount)
     {
-        return command;
+        if (this.coins >= amount)
+            this.coins = this.coins - amount;
+        else
+            this.coins = 0;
     }
     
-    public String getExpiredCommand()
+    public int getCoins ()
     {
-        return excommand;
+        return this.coins;
     }
+    
+    public void saveGains (int gains)
+    {
+        this.gains = gains;
+    }
+    
+    public boolean getWarp () 
+    {
+        if (this.warp.equals("000"))
+            return false;
+        return true;
+    }
+    
+    public void setWarp (String name) 
+    {
+        this.warp = name;
+    }
+    
 }
-
-

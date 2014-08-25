@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import org.bukkit.entity.Player;
 
 import org.tritania.unicus.Unicus;
-import org.tritania.unicus.Merchandise;
+import org.tritania.unicus.UPlayer;
 import org.tritania.unicus.utils.Log;
 
 public class Storage implements Serializable
@@ -46,11 +46,11 @@ public class Storage implements Serializable
         this.un = un;
     }
     
-    public void saveCoins(HashMap<String, Integer> coins)
+    public void saveData (HashMap<String, UPlayer> coins)
     {
         try
         {
-            File data =  new File(un.datalocal + "/coins.data");
+            File data =  new File(un.datalocal + "/players.data");
             FileOutputStream fos   = new FileOutputStream(data);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
@@ -65,16 +65,16 @@ public class Storage implements Serializable
         }
     }
 
-    public HashMap<String, Integer> loadCoins()
+    public HashMap<String, UPlayer> loadData ()
     {
-        HashMap<String, Integer> values = new HashMap<String, Integer>();
+        HashMap<String, UPlayer> values = new HashMap<String, UPlayer>();
         try
         {
-            File data =  new File(un.datalocal + "/coins.data");
+            File data =  new File(un.datalocal + "/players.data");
             FileInputStream fis  = new FileInputStream(data);
             ObjectInputStream ois= new ObjectInputStream(fis);
 
-            values = (HashMap<String, Integer>)ois.readObject();
+            values = (HashMap<String, UPlayer>)ois.readObject();
 
             ois.close();
             fis.close();
@@ -86,43 +86,4 @@ public class Storage implements Serializable
         return values;
     }
     
-    public void saveStore (HashMap<String, Merchandise> items)
-    {
-        try
-        {
-            File data =  new File(un.datalocal + "/store.data");
-            FileOutputStream fos   = new FileOutputStream(data);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(items);
-            oos.flush();
-            oos.close();
-            fos.close();
-        }
-        catch(Exception ex)
-        {
-            Log.severe("File IO error: " + ex.getMessage());
-        }
-    }
-
-    public HashMap<String, Merchandise> loadStore()
-    {
-        HashMap<String, Merchandise> values = new HashMap<String, Merchandise>();
-        try
-        {
-            File data =  new File(un.datalocal + "/store.data");
-            FileInputStream fis  = new FileInputStream(data);
-            ObjectInputStream ois= new ObjectInputStream(fis);
-
-            values = (HashMap<String, Merchandise>)ois.readObject();
-
-            ois.close();
-            fis.close();
-        }
-        catch(Exception ex)
-        {
-            Log.severe("File IO error: " + ex.getMessage());
-        }
-        return values;
-    }
 }
