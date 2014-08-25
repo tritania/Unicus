@@ -17,7 +17,7 @@
 
 package org.tritania.unicus;
 
-public class Merchandise extends YamlConfiguration
+public class Merchandise 
 {
     private String command;
     private String excommand; //expiry command

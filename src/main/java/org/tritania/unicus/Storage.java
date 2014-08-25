@@ -46,46 +46,6 @@ public class Storage implements Serializable
         this.un = un;
     }
     
-    public void savePurges(HashMap<String, String> purges)
-    {
-        try
-        {
-            File data =  new File(un.datalocal + "/purge.data");
-            FileOutputStream fos   = new FileOutputStream(data);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(purges);
-            oos.flush();
-            oos.close();
-            fos.close();
-        }
-        catch(Exception ex)
-        {
-            Log.severe("File IO error: " + ex.getMessage());
-        }
-    }
-
-    public HashMap<String, String> loadPurges()
-    {
-        HashMap<String, String> values = new HashMap<String, String>();
-        try
-        {
-            File data =  new File(un.datalocal + "/purge.data");
-            FileInputStream fis  = new FileInputStream(data);
-            ObjectInputStream ois= new ObjectInputStream(fis);
-
-            values = (HashMap<String, String>)ois.readObject();
-
-            ois.close();
-            fis.close();
-        }
-        catch(Exception ex)
-        {
-            Log.severe("File IO error: " + ex.getMessage());
-        }
-        return values;
-    }
-    
     public void saveCoins(HashMap<String, Integer> coins)
     {
         try

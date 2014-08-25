@@ -98,30 +98,4 @@ public class PlayerListener implements Listener
             un.coin.add(player, 1);
         }
     }
-    
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void playerCommand(PlayerCommandPreprocessEvent event) 
-    {
-        String raw = event.getMessage();
-        String[] args = raw.split("\\s+");
-        
-        Player player = event.getPlayer();
-        
-        if (args[0].equals("/home") && un.purges.containsKey(player.getName())) {
-            if (un.purges.get(player.getName()).equals("1") && args.length == 1) {
-                Message.info(player, "Please pick your new main home with /pick [homename]");
-                Message.info(player, "The others will be locked as your rank has fallen");
-                Message.info(player, "To unlock them again simply donate");
-            } if (un.purges.get(player.getName()).equals("1") && args.length == 2) {
-                Message.info(player, "Please pick your new main home with /pick [homename]");
-                Message.info(player, "The others will be locked as your rank has fallen");
-                Message.info(player, "To unlock them again simply donate");
-                event.setCancelled(true);
-            } else if (args.length == 2 && args[1].equals(un.purges.get(player.getName()))) {
-            } else {
-                event.setCancelled(true);
-                Message.info(player, "That home is locked!");
-            }
-        }
-    }
 }

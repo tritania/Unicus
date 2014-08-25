@@ -41,7 +41,6 @@ public class Unicus extends JavaPlugin
     public Storage store;
     public Coins coin;
     public String datalocal;
-    public HashMap<String, String> purges = new HashMap<String, String>();
     public HashMap<String, Integer> coins = new HashMap<String, Integer>();
 	
 	public void onLoad()
@@ -64,23 +63,17 @@ public class Unicus extends JavaPlugin
         store = new Storage(this);
         coin = new Coins(this);
         
-        purges = store.loadPurges();
         coins = store.loadCoins();
         coin.items = store.loadStore();
         
 		pm.registerEvents(new PlayerListener(this), this);
 		
-		getCommand("purge").setExecutor(new CPurge(this));
-		getCommand("unpurge").setExecutor(new CUnPurge(this));
-		getCommand("plist").setExecutor(new CPurgeList(this));
-		getCommand("pick").setExecutor(new CPurgePick(this));
 		getCommand("coins").setExecutor(new CCoin(this));
 
 	}
 	
 	public void onDisable()
 	{
-		store.savePurges(purges);
         store.saveCoins(coins);
         store.saveStore(coin.items);
 	}
