@@ -31,17 +31,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.World;
 
 import org.tritania.unicus.utils.Log;
 import org.tritania.unicus.utils.Message;
 import org.tritania.unicus.Unicus;
-import org.tritania.unicus.UPlayer;
 
 public class PlayerListener implements Listener
 {
-	private Unicus un;
-    private int BLOCKS = 576;
-    private HashMap<String, Integer> gains = new HashMap<String, Integer>(); //tracks player gains
+    private Unicus un;
 
 	public PlayerListener(Unicus un)
 	{
@@ -60,57 +58,15 @@ public class PlayerListener implements Listener
     public void onPlayerJoin(PlayerJoinEvent event)
     {
         Player player = event.getPlayer();
-        if(!un.data.containsKey(player.getName())) {
-            un.data.put(player.getName(), new UPlayer());
-        }
-        gains.put(player.getName(), 0);
-    }
-
-    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-    public void onPlayerLeave(PlayerQuitEvent event)
-    {
-       Player player = event.getPlayer();
-       gains.remove(player.getName());
-    }
-    
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
-    public void playerBlockBreak(BlockBreakEvent event)
-    {
-        Player player = event.getPlayer();
-        String name = player.getName();
+        World world = player.getWorld();
         
-        int amount = gains.get(name);
-        gains.put(name, amount + 1);
-        
-        if (amount + 1 == BLOCKS) {
-            un.data.get(name).addCoins(1);
-        }
-    }
-    
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
-    public void playerBlockPlace(BlockPlaceEvent event)
-    {
-        Player player = event.getPlayer();
-        String name = player.getName();
-        
-        int amount = gains.get(name);
-        gains.put(name, amount + 1);
-        
-        if (amount + 1 == BLOCKS) {
-            un.data.get(name).addCoins(1);
-        }
-    }
-    
-     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void playerCommand(PlayerCommandPreprocessEvent event) 
-    {
-        String raw = event.getMessage();
-        String[] args = raw.split("\\s+");
-        
-        Player player = event.getPlayer();
-        
-        if (args[0].equals("/setwarp") && un.data.containsKey(player.getName())) {
-            
+        if (world.getName().equals("Resource"))
+        {
+            if (un.land.wipeWorld())
+            {
+                Message.info(player, "Please wait a few moments, the resource world is resetting");
+                un.land.unloadWorld(un.datalocal);
+            }
         }
     }
 }

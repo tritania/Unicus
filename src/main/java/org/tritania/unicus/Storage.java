@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Erik Wilson <erikwilson@magnorum.com>
+ * Copyright 2014-2015 Erik Wilson <erikwilson@magnorum.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import org.bukkit.entity.Player;
 
 import org.tritania.unicus.Unicus;
-import org.tritania.unicus.UPlayer;
 import org.tritania.unicus.utils.Log;
 
 public class Storage implements Serializable
@@ -46,15 +45,15 @@ public class Storage implements Serializable
         this.un = un;
     }
     
-    public void saveData (HashMap<String, UPlayer> coins)
+    public void saveData (HashMap<String, Long> worlds)
     {
         try
         {
-            File data =  new File(un.datalocal + "/players.data");
+            File data =  new File(un.datalocal + "/worlds.data");
             FileOutputStream fos   = new FileOutputStream(data);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            oos.writeObject(coins);
+            oos.writeObject(worlds);
             oos.flush();
             oos.close();
             fos.close();
@@ -65,16 +64,16 @@ public class Storage implements Serializable
         }
     }
 
-    public HashMap<String, UPlayer> loadData ()
+    public HashMap<String, Long> loadData ()
     {
-        HashMap<String, UPlayer> values = new HashMap<String, UPlayer>();
+        HashMap<String, Long> values = new HashMap<String, Long>();
         try
         {
             File data =  new File(un.datalocal + "/players.data");
             FileInputStream fis  = new FileInputStream(data);
             ObjectInputStream ois= new ObjectInputStream(fis);
 
-            values = (HashMap<String, UPlayer>)ois.readObject();
+            values = (HashMap<String, Long>)ois.readObject();
 
             ois.close();
             fis.close();

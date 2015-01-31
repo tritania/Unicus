@@ -22,6 +22,7 @@ import java.util.UUID;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.lang.Long;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -35,14 +36,14 @@ import org.tritania.unicus.utils.Message;
 import org.tritania.unicus.command.*;
 import org.tritania.unicus.PlayerListener;
 import org.tritania.unicus.Storage;
-import org.tritania.unicus.UPlayer;
+import org.tritania.unicus.UWorld;
 
 public class Unicus extends JavaPlugin
 {
     public Storage store;
-    public Coins coin;
+    public UWorld land;
     public String datalocal;
-    public HashMap<String, UPlayer> data = new HashMap<String, UPlayer>();
+    public HashMap<String, Long> data = new HashMap<String, Long>();
 	
 	public void onLoad()
 	{
@@ -62,13 +63,14 @@ public class Unicus extends JavaPlugin
         datalocal = getDataFolder().getAbsolutePath();
 		
         store = new Storage(this);
-        coin = new Coins(this);
-        
+        land = new UWorld(this);
         data = store.loadData();
         
 		pm.registerEvents(new PlayerListener(this), this);
 		
-		getCommand("coins").setExecutor(new CCoin(this));
+		getCommand("nether").setExecutor(new CNether(this));
+		getCommand("resource").setExecutor(new CResource(this));
+		getCommand("unicus").setExecutor(new CStart(this));
 
 	}
 	

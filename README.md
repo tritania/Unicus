@@ -3,11 +3,9 @@ Unicus
 A bukkit plugin created for specific use on glaciem minecraft servers. This plugin interfaces with both dynmap and Essentials.
 
 ## Commands ##
-* /pick                 Allows the player to pick their new main home
-* /purge                Allows admins to purge the multihomes of players (Also works in console)
-* /unpurge              Reverses the /purge commands
-* /purgelist            Lists all curently purged players
-* /coins                Access to all coin commands
+* /resource             Teleports a player to a random place in the resource world
+* /nether               Teleports a player to a random place in the nether
+* /unicus               Admin commands
 
 
 ## Permissions ##

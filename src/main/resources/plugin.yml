@@ -8,24 +8,17 @@ website: https://github.com/tritania/Unicus
 main: org.tritania.unicus.Unicus
 
 commands:
-  purge:
-    description: Purges multihomes
+  nether:
+    description: teleports to the nether
     aliases: []
-    usage: /<command> [playername]
-  unpurge:
-    description: removes the purges of multihomes
+    usage: /<command> [spawn]
+  resource:
+    description: teleports to the resource map
     aliases: []
-    usage: /<command> [playername]
-  plist:
-    description: list all purged players
+    usage: /<command> [spawn]
+  unicus:
+    description: admin commands
     aliases: []
-    usage: /<command>
-  pick:
-    description: pick your new main home 
-    aliases: []
-    usage: /<command> [homename]
-  coins:
-    description: coin commands
-    aliases: []
-    usage: /<command> [username] [amount]
+    usage: /<command> [resource]
+
 

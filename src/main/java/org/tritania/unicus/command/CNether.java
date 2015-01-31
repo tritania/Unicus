@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Erik Wilson <erikwilson@magnorum.com>
+ * Copyright 2014-2015 Erik Wilson <erikwilson@magnorum.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,16 +26,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.Bukkit;
 
 import org.tritania.unicus.Unicus;
-import org.tritania.unicus.Coins;
 import org.tritania.unicus.utils.Message;
 import org.tritania.unicus.utils.Log;
 /*End Imports*/
 
-public class CCoin implements CommandExecutor
+public class CNether implements CommandExecutor
 {
     public Unicus un;
 
-    public CCoin(Unicus un)
+    public CNether(Unicus un)
     {
         this.un = un;
     }
@@ -44,33 +43,11 @@ public class CCoin implements CommandExecutor
     {
         Player player = (Player) sender; //need to check for console
         
-        if (args.length < 1) {
-            un.coin.balance(player);
+        if (args.length < 1) 
+        {
             Message.info(sender, command.getUsage());
             return true;
         }
-        
-        if (args[0].equals("add")) {
-            if (player.hasPermission("unicus.coins.admin")) {
-                Player playr = Bukkit.getPlayer(args[1]);
-                un.data.get(playr.getName()).addCoins(Integer.parseInt(args[2]));
-            }
-        } else if (args[0].equals("remove")) {
-            if (player.hasPermission("unicus.coins.admin")) {
-                Player playr = Bukkit.getPlayer(args[1]);
-                un.data.get(playr.getName()).removeCoins(Integer.parseInt(args[2]));                
-            }
-        } else if (args[0].equals("transfer")) {
-            if (un.coin.transfer(player, Bukkit.getPlayer(args[1]), Integer.parseInt(args[2]))) {
-                Message.info(sender, "Transfer complete");
-            } else {
-                Message.info(sender, "Transfer could not be made!");
-            }
-        } else {
-            Message.info(sender, command.getUsage());
-        }
-         
         return true;
     }
 }
-
