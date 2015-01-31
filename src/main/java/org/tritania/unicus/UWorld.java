@@ -28,11 +28,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Collection;
 import java.util.Iterator;
+import java.text.DateFormat;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+import org.apache.commons.io.FileUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-
 import org.bukkit.entity.Player;
 
 import org.tritania.unicus.Unicus;
@@ -83,41 +87,48 @@ public class UWorld
         if(!world.equals(null)) 
         {
             Bukkit.getServer().unloadWorld(world, true);
-            File file = new File(base + "/Resource");
+            File file = new File(Bukkit.getWorldContainer() + File.separator + "Resource");
             deleteWorld(file);
         }
     }
     
     public boolean deleteWorld(File path) 
     {
-      if(path.exists()) 
-      {
-          File files[] = path.listFiles();
-          for(int i=0; i<files.length; i++) 
-          {
-              if(files[i].isDirectory()) 
-              {
-                  deleteWorld(files[i]);
-              }
-              else 
-              {
-                  files[i].delete();
-              }
-          }
-      }
-      path.delete();
-      addWorld();
-      return true;
+        try
+        {
+            FileUtils.deleteDirectory(path);
+        }
+        catch (Exception ex)
+        {
+            
+        }
+        addWorld();
+        return true;
     }
     
     public boolean wipeWorld()
     {
         Date date = new Date();
-        if ((un.data.get("Resource") != null) && (un.data.get("Resource") - date.getTime()) >= week)
+        if ((un.data.get("Resource") != null) && (date.getTime()- un.data.get("Resource")) >= week)
         {
             return true;
         }
         return false;
+    }
+    
+    public String timeLeft()
+    {
+        Date date = new Date();
+        if (un.data.get("Resource") != null)
+        {
+            Long left = date.getTime() - un.data.get("Resource");
+            left = week - left;
+            Date expireDate = new Date(System.currentTimeMillis() + left);
+            DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            String value = "The Resource World will reset on: " + df.format(expireDate);
+            return value;
+        }
+        return "The Resource World will reset on: Never";
     }
 }
 

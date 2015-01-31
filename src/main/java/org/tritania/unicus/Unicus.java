@@ -77,7 +77,7 @@ public class Unicus extends JavaPlugin
         
         if (data.containsKey("Resource"))
         {
-            Bukkit.getServer().createWorld(new WorldCreator("Resource"));
+            Bukkit.createWorld(new WorldCreator("Resource"));
             System.out.println("Resource world loaded");
         }
 

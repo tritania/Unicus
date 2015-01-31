@@ -67,6 +67,10 @@ public class PlayerListener implements Listener
                 Message.info(player, "Please wait a few moments, the resource world is resetting");
                 un.land.unloadWorld(un.datalocal);
             }
+            else
+            {
+                Message.info(player, un.land.timeLeft());
+            }
         }
     }
 }

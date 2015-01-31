@@ -37,6 +37,7 @@ import org.tritania.unicus.utils.Log;
 public class CResource implements CommandExecutor
 {
     public Unicus un;
+    private int highest;
 
     public CResource(Unicus un)
     {
@@ -49,12 +50,32 @@ public class CResource implements CommandExecutor
         if (player.getWorld().getName().equals("Resource"))
         {
             Message.info(sender, "You're already in the resource world");
+            return true;
         }
         else if (un.land.wipeWorld())
         {
             Message.info(sender, "Please wait a few moments, the resource world is resetting");
             un.land.unloadWorld(un.datalocal);
+            return true;
         }
+        else if (args.length > 0 && args[0].equals("spawn"))
+        {
+            Random rand = new Random();
+            World world = Bukkit.getWorld("Resource");
+            Location location = new Location(world, 0, 64.0, 0);
+            if (world.getHighestBlockYAt(location) > 5)
+            {
+                highest = 64;
+            }
+            else
+            {
+                highest = world.getHighestBlockYAt(location);
+            }   
+            Location prime = new Location(world, 0, highest, 0);
+            
+            player.teleport(prime);
+        }
+        
         else
         {
             Random rand = new Random();
@@ -62,12 +83,20 @@ public class CResource implements CommandExecutor
             double x = 40000 * rand.nextDouble();
             double z = 40000 * rand.nextDouble();
             Location location = new Location(world, x, 64.0, z);
-            int highest = world.getHighestBlockYAt(location);
-            Location prime = new Location(world, x, 64.0, z);
+            if (world.getHighestBlockYAt(location) > 5)
+            {
+                highest = 64;
+            }
+            else
+            {
+                highest = world.getHighestBlockYAt(location);
+            } 
+            Location prime = new Location(world, x, highest, z);
             
             player.teleport(prime);
         }
         
+        Message.info(sender, un.land.timeLeft());
         
         return true;
     }
