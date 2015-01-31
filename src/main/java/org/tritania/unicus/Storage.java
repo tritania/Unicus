@@ -69,7 +69,7 @@ public class Storage implements Serializable
         HashMap<String, Long> values = new HashMap<String, Long>();
         try
         {
-            File data =  new File(un.datalocal + "/players.data");
+            File data =  new File(un.datalocal + "/worlds.data");
             FileInputStream fis  = new FileInputStream(data);
             ObjectInputStream ois= new ObjectInputStream(fis);
 

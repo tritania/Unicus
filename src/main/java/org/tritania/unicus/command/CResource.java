@@ -64,6 +64,8 @@ public class CResource implements CommandExecutor
             Location location = new Location(world, x, 64.0, z);
             int highest = world.getHighestBlockYAt(location);
             Location prime = new Location(world, x, 64.0, z);
+            
+            player.teleport(prime);
         }
         
         

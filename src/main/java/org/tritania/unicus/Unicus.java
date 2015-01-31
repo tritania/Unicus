@@ -30,6 +30,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
 
 import org.tritania.unicus.utils.Log;
 import org.tritania.unicus.utils.Message;
@@ -71,6 +74,12 @@ public class Unicus extends JavaPlugin
 		getCommand("nether").setExecutor(new CNether(this));
 		getCommand("resource").setExecutor(new CResource(this));
 		getCommand("unicus").setExecutor(new CStart(this));
+        
+        if (data.containsKey("Resource"))
+        {
+            Bukkit.getServer().createWorld(new WorldCreator("Resource"));
+            System.out.println("Resource world loaded");
+        }
 
 	}
 	

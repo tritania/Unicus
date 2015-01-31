@@ -55,8 +55,9 @@ public class CStart implements CommandExecutor
         }
         else if (args[0].equals("start"))
         {
-            un.land.addWorld();
             Message.info(sender, "Adding World");
+            un.land.addWorld();
+            Message.info(sender, "Adding World Complete");
         }
         else
         {
