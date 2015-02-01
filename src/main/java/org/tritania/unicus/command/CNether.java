@@ -51,14 +51,15 @@ public class CNether implements CommandExecutor
     {
         this.un = un;
         
-        Collection<? extends World> worlds = Bukkit.getWorlds(); 
-        
-        for (Iterator iterator = worlds.iterator(); iterator.hasNext();) 
+        Iterator<Map.Entry<String, Long>> iterator = un.data.entrySet().iterator();
+
+        while(iterator.hasNext())
         {
-			World world = (World) iterator.next();
-            if (world.getEnvironment() == Environment.NETHER)
+            Map.Entry<String, Long> entry = iterator.next();
+            String name = entry.getKey();
+            if (!name.equals("Resource"))
             {
-                nethername = world.getName();
+                nethername = name;
             }
         }
     }
@@ -113,8 +114,6 @@ public class CNether implements CommandExecutor
             
             player.teleport(location);
         }
-        
-        Message.info(sender, un.land.timeLeft());
         
         return true;
     }
